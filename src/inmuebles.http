@@ -1,0 +1,6 @@
+# Obtener todos los inmuebles
+GET http://localhost:3000/api/inmuebles
+
+# Obtner un inmueble por ID
+GET http://localhost:3000/api/inmuebles/c7dbc801-25c3-403c-9882-a852b4eb50fa
+

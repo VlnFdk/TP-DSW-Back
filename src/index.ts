@@ -2,6 +2,7 @@ import express from 'express';
 import { Inmueble } from './inmueble.js';
 
 const app = express()
+app.use(express.json())
 
 const inmuebles = [
     new Inmueble(
@@ -24,6 +25,13 @@ app.get('/api/inmuebles/:id', (req, res) => {
         res.status(404).send({ message: 'Inmueble no encontrado' })
     }
     res.json(inmueble)
+})
+
+app.post('/api/inmuebles', express.json(), (req, res) => {
+    const { direccion, cant_ambientes, orientacion, descripcion } = req.body;
+    const nuevoInmueble = new Inmueble(direccion, cant_ambientes, orientacion, descripcion);
+    inmuebles.push(nuevoInmueble);
+    res.status(201).json(nuevoInmueble);
 })
 
 app.use('/', (req, res) => {

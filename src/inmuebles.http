@@ -1,0 +1,29 @@
+### OBTENER TODOS LOS INMUEBLES
+GET http://localhost:3000/api/inmuebles
+
+### OBTENER UN INMUEBLE POR ID
+GET http://localhost:3000/api/inmuebles/c7dbc801-25c3-403c-9882-a852b4eb50fa
+
+### CREAR UN NUEVO INMUEBLE
+POST http://localhost:3000/api/inmuebles
+Content-Type: application/json
+
+{
+  "direccion": "Calle super Falsa 123",
+  "cant_ambientes": 5,
+  "orientacion": "Sur",
+  "descripcion": "Una casa re fachera mal"
+}
+
+### MODIFICAR UN INMUEBLE (PUT)
+
+PUT http://localhost:3000/api/inmuebles/c7dbc801-25c3-403c-9882-a852b4eb50fa
+Content-Type: application/json
+
+{
+  "direccion": "Calle Falsa 123",
+  "cant_ambientes": 3,
+  "orientacion": "Noreste",
+  "descripcion": "Departamento luminoso con balcón"
+}
+

@@ -1,5 +1,6 @@
 import express from 'express';
 import { Inmueble } from './inmueble.js';
+import { dir } from 'console';
 
 const app = express()
 app.use(express.json())
@@ -33,6 +34,24 @@ app.post('/api/inmuebles', express.json(), (req, res) => {
     inmuebles.push(nuevoInmueble);
     res.status(201).json(nuevoInmueble);
 })
+
+app.put('/api/inmuebles/:id', express.json(), (req, res) => {
+    const inmuebleIndex = inmuebles.findIndex((inmueble) => inmueble.id === req.params.id)
+
+    if (inmuebleIndex === -1) {
+     res.status(404).send({ message: 'Inmueble no encontrado' })
+    }
+    const inputInmueble ={
+        direccion: req.body.direccion,
+        cant_ambientes: req.body.cant_ambientes,
+        orientacion: req.body.orientacion,
+        descripcion: req.body.descripcion,
+    }
+inmuebles[inmuebleIndex] = { ...inmuebles[inmuebleIndex], ...inputInmueble }
+
+    res.status(200).send({ message: 'Inmueble actualizado', inmueble: inmuebles[inmuebleIndex] })
+})
+
 
 app.use('/', (req, res) => {
     res.json({ message: 'Hello World!'})

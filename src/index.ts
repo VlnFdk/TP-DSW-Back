@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import { Inmueble } from './inmueble.js';
 import { dir } from 'console';
 
@@ -15,6 +15,21 @@ const inmuebles = [
     )
 ]
 
+function sanitizeInmuebleInput(req: Request, res: Response, next: NextFunction){
+    req.body.sanitizeInput = {
+        direccion: req.body.direccion,
+        cant_ambientes: req.body.cant_ambientes,
+        orientacion: req.body.orientacion,  
+        descripcion: req.body.descripcion,
+    }
+    
+    Object.keys(req.body.sanitizeInput).forEach((key) => {
+        if (req.body.sanitizeInput[key] === undefined) {
+          delete req.body.sanitizeInput[key]
+        }
+      })
+      next()
+    }
 
 app.get('/api/inmuebles', (req, res) => {
     res.json(inmuebles)
@@ -28,30 +43,54 @@ app.get('/api/inmuebles/:id', (req, res) => {
     res.json(inmueble)
 })
 
-app.post('/api/inmuebles', express.json(), (req, res) => {
-    const { direccion, cant_ambientes, orientacion, descripcion } = req.body;
-    const nuevoInmueble = new Inmueble(direccion, cant_ambientes, orientacion, descripcion);
-    inmuebles.push(nuevoInmueble);
-    res.status(201).json(nuevoInmueble);
+app.post('/api/inmuebles', sanitizeInmuebleInput, (req, res) => {
+    const input = req.body.sanitizeInput
+    const nuevoInmueble = new Inmueble(
+        input.direccion,
+        input.cant_ambientes,
+        input.orientacion,
+        input.descripcion
+    )
+
+    inmuebles.push(nuevoInmueble)
+    res.status(201).send({ message: 'Inmueble creado', data: nuevoInmueble })
 })
 
-app.put('/api/inmuebles/:id', express.json(), (req, res) => {
+app.put('/api/inmuebles/:id', sanitizeInmuebleInput, (req, res) => {
     const inmuebleIndex = inmuebles.findIndex((inmueble) => inmueble.id === req.params.id)
 
     if (inmuebleIndex === -1) {
      res.status(404).send({ message: 'Inmueble no encontrado' })
     }
-    const inputInmueble ={
-        direccion: req.body.direccion,
-        cant_ambientes: req.body.cant_ambientes,
-        orientacion: req.body.orientacion,
-        descripcion: req.body.descripcion,
-    }
-inmuebles[inmuebleIndex] = { ...inmuebles[inmuebleIndex], ...inputInmueble }
+   
+inmuebles[inmuebleIndex] = { ...inmuebles[inmuebleIndex], ...req.body.sanitizeInput }
 
     res.status(200).send({ message: 'Inmueble actualizado', inmueble: inmuebles[inmuebleIndex] })
 })
 
+app.patch('/api/inmuebles/:id', sanitizeInmuebleInput, (req, res) => {
+    const inmuebleIndex = inmuebles.findIndex((inmueble) => inmueble.id === req.params.id)
+
+    if (inmuebleIndex === -1) {
+     res.status(404).send({ message: 'Inmueble no encontrado' })
+    }
+
+    Object.assign(inmuebles[inmuebleIndex], req.body.sanitizeInput)
+
+    res.status(200).send({ message: 'Inmueble actualizado', inmueble: inmuebles[inmuebleIndex] })
+})
+
+app.delete('/api/inmuebles/:id', (req, res) => {
+    const inmuebleIndex = inmuebles.findIndex((inmueble) => inmueble.id === req.params.id)
+
+    if (inmuebleIndex === -1) {
+        res.status(404).send({ message: 'Inmueble no encontrado' })
+    }      
+    else {
+        inmuebles.splice(inmuebleIndex, 1)
+        res.status(200).send({ message: 'Inmueble eliminado' })
+    }
+})
 
 app.use('/', (req, res) => {
     res.json({ message: 'Hello World!'})
@@ -61,4 +100,3 @@ app.use('/', (req, res) => {
 app.listen(3000, () => {
     console.log('Server is running on http://localhost:3000');
 })
-

@@ -21,9 +21,23 @@ PUT http://localhost:3000/api/inmuebles/c7dbc801-25c3-403c-9882-a852b4eb50fa
 Content-Type: application/json
 
 {
-  "direccion": "Calle Falsa 123",
+  "direccion": "Calle Falsa 124",
   "cant_ambientes": 3,
   "orientacion": "Noreste",
-  "descripcion": "Departamento luminoso con balcón"
+  "descripcion": "Departamento luminoso con patio"
 }
+
+### MODIFICAR UN INMUEBLE (PATCH) ///REVISAR
+
+PATCH http://localhost:3000/api/inmuebles/c7dbc801-25c3-403c-9882-a852b4eb50fa
+Content-Type: application/json
+
+{
+  "direccion": "Calle Falsa 124 1° A",
+  "cant_ambientes": 6
+}
+
+
+### ELIMINAR UN INMUEBLE
+DELETE http://localhost:3000/api/inmuebles/c7dbc801-25c3-403c-9882-a852b4eb50fa
 

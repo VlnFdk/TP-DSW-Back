@@ -2,21 +2,21 @@
 curl http://localhost:3000/
 ### 2. Obtener todos los inmuebles
 curl http://localhost:3000/inmuebles
-### 3. Obtener un inmueble específico
-curl http://localhost:3000/inmuebles/f81f7604-67a0-4758-89ef-4378ea3acf1e
-### 4. Crear un nuevo inmueble (NO FUNCIONA)
+### 3. Obtener un inmueble específico (se dedebe reemplazar `:ingresar_id` por un ID válido ya que se autogeneran para cada iteracion)
+curl http://localhost:3000/inmuebles/:ingresar_id
+### 4. Crear un nuevo inmueble 
 curl -X POST http://localhost:3000/inmuebles \
   -H "Content-Type: application/json" \
   -d '{"direccion": "Calle super Falsa 123",
        "cant_ambientes": 5,
        "orientacion": "Este",
        "descripcion": "Una casa re fachera mal"}'
-### 5. Actualizar un inmueble existente (NO FUNCIONA)
-curl -X PUT http://localhost:3000/users/inmuebles/bbda6b2c-ecf7-4751-8133-16224a2a087e \
+### 5. Actualizar un inmueble existente (se dedebe reemplazar `:ingresar_id` por un ID válido ya que se autogeneran para cada iteracion)
+curl -X PUT http://localhost:3000/inmuebles/:ingresar_id \
   -H "Content-Type: application/json" \
   -d '{"direccion": "Calle Falsa 124",
        "cant_ambientes": 3,
        "orientacion": "Noreste",
        "descripcion": "Departamento luminoso con patio"}'
-### 6. Eliminar un inmueble
-curl -X DELETE http://localhost:3000/inmuebles/bbda6b2c-ecf7-4751-8133-16224a2a087e
+### 6. Eliminar un inmueble (se dedebe reemplazar `:ingresar_id` por un ID válido ya que se autogeneran para cada iteracion)
+curl -X DELETE http://localhost:3000/inmuebles/:ingresar_id

@@ -42,7 +42,6 @@ const getInmueble = (req, res) => {
 
 const createInmueble = (req, res) => { 
   try{
-    //validacion manual de datos requeridos
     const {direccion, cant_ambientes, orientacion, descripcion} = req.body;
     if(!direccion || !cant_ambientes || !orientacion || !descripcion){
       return res.status(400).json({
@@ -50,11 +49,17 @@ const createInmueble = (req, res) => {
         error: "Faltan datos obligatorios"
       });
     }
+    const nuevo = inmuebleService.createInmueble({direccion, cant_ambientes, orientacion, descripcion});
+    return res.status(201).json({
+      success: true,
+      data: nuevo,
+      message: "Inmueble creado correctamente"
+    });
   }
   catch(error){
     return res.status(500).json({
       success: false,
-      error: "Error interno del servidor"
+      error: error.message || "Error interno del servidor"
     });
   }
 };

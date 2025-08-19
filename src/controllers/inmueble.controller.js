@@ -18,6 +18,7 @@ const getInmuebles = (req, res) => {
   }
 };
 
+
 const getInmueble = (req, res) => {
   try {
     const inmueble = inmuebleService.getInmuebleById(req.params.id);

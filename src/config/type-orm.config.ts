@@ -1,5 +1,6 @@
 import { DataSource } from "typeorm"
-import { Inmueble } from "../entities/Inmueble.js";
+import { Inmueble } from "../models/Inmueble.js";
+
 
 const dbconfig = new DataSource({
     type: "mysql",
@@ -8,6 +9,7 @@ const dbconfig = new DataSource({
     username: "root",
     password: "root",
     database: "api-express",
+    logging: true,
     entities: [Inmueble],
     synchronize: true // SEGUN DOCUMENTACION, NO SE RECOMIENDA PARA PRODUCCION, SOLAMENTE DESARROLLO. PERMITE CREAR LA BD SI NO EXISTE.
 });

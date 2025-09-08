@@ -1,5 +1,5 @@
 import DatabaseManager from "../database/DataBaseManager.js";
-import { Inmueble } from "../entities/Inmueble.js";
+import { Inmueble } from "../models/Inmueble.js";
 
 interface CreateInmuebleData {
 	direccion: string;

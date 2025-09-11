@@ -1,14 +1,13 @@
 import 'reflect-metadata';
 import express , {Request, Response, NextFunction} from 'express';
 import DatabaseManager from './database/DataBaseManager.js';
-import { RequestContext } from 'typeorm';
 import inmuebleRoutes from './routes/inmueble.routes.js';
 
 const app = express();
 const dbManager = DatabaseManager.getInstance();
 
 // Middleware de logger
-const logger = (req: Request, res: Response, next: NextFunction): void => {
+const logger = (req: Request, _res: Response, next: NextFunction): void => {
   const timestamp = new Date().toISOString();
   console.log(`[${timestamp}] ${req.method} ${req.originalUrl}`);
   next();
@@ -28,8 +27,10 @@ const initializeApp = async (): Promise<void> => {
         // Inicializar la base de datos
         const orm = await dbManager.initialize();
 
-        app.use((req: Request, res: Response, next: NextFunction) => {
-            RequestContext.create(orm.manager, next);
+        // Middleware para hacer disponible la conexión a la BD en las rutas
+        app.use((req: Request, _res: Response, next: NextFunction) => {
+            (req.app.locals as { db: any }).db = orm;
+            next();
         });
 
         // Configurar rutas después de inicializar la BD

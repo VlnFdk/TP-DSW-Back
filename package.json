@@ -19,6 +19,7 @@
     "dev": "tsc-watch --noClear -p ./tsconfig.json --onSuccess \"node ./dist/app.js\""
   },
   "dependencies": {
+    "dotenv": "^17.2.2",
     "express": "5.1.0",
     "mysql2": "^3.14.3",
     "reflect-metadata": "^0.2.2",

@@ -13,8 +13,8 @@ const dbconfig = new DataSource({
     password: process.env['PASSWORD_ENV'] as string,
     database: process.env['BDNAME_ENV'] as string,
     logging: true,
-    entities: [Inmueble],
-    synchronize: true // SEGUN DOCUMENTACION, NO SE RECOMIENDA PARA PRODUCCION, SOLAMENTE DESARROLLO. PERMITE CREAR LA BD SI NO EXISTE.
+    entities: [Inmueble]
+    //synchronize: true // SEGUN DOCUMENTACION, NO SE RECOMIENDA PARA PRODUCCION, SOLAMENTE DESARROLLO. PERMITE CREAR LA BD SI NO EXISTE.
 });
 
 export default dbconfig;

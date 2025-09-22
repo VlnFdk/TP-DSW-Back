@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, DeleteDateColumn } from "typeorm";
-
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, DeleteDateColumn, OneToMany } from "typeorm";
+import { Employee } from "./employee.entity";
 
 @Entity()
 export class Hoa {
@@ -15,18 +15,21 @@ export class Hoa {
     @Column()
     public address!: string;
 
-    @CreateDateColumn()
-    public creation_timestamp!: Date;
+    @CreateDateColumn({type: 'timestamp'})
+    public creationTimestamp!: Date;
 
     @DeleteDateColumn({type: 'timestamp', nullable: true})
-    public delete_timestamp!: Date | undefined;
+    public deleteTimestamp!: Date | undefined;
 
-    constructor(cuit: string, name: string, address: string, creation_timestamp: Date, delete_timestamp: Date) {
+    @OneToMany(() => Employee, (Employee) => Employee.hoa)
+    users!: Employee[];
+
+    constructor(cuit: string, name: string, address: string, creationTimestamp: Date, deleteTimestamp: Date | undefined) {
         this.cuit = cuit;
         this.name = name;
         this.address = address;
-        this.creation_timestamp = creation_timestamp;
-        this.delete_timestamp = delete_timestamp; 
+        this.creationTimestamp = creationTimestamp;
+        this.deleteTimestamp = deleteTimestamp; 
     }
 
 }

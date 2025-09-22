@@ -9,14 +9,14 @@ export class Inmueble {
     direccion!: string;
   
     @Column()
-    cant_ambientes!: number;
+    cantAmbientes!: number;
 
     @Column()
     orientacion!: string;
 
-    constructor(direccion: string, cant_ambientes: number, orientacion: string) {
+    constructor(direccion: string, cantAmbientes: number, orientacion: string) {
         this.direccion = direccion;
-        this.cant_ambientes = cant_ambientes;
+        this.cantAmbientes = cantAmbientes;
         this.orientacion = orientacion;
     }
 

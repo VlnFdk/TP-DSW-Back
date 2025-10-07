@@ -3,6 +3,7 @@ import { usrUnit } from "./usr_unit.entity";
 import { Employee } from "./employee.entity";
 import { usrRole } from "./usr_role.entity";
 
+
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()

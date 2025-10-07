@@ -1,0 +1,40 @@
+### OBTENER TODAS LAS UNIDADES
+GET http://localhost:3000/units
+
+### OBTENER UNA UNIDAD POR ID
+GET http://localhost:3000/units/1
+
+### CREAR UNA NUEVA UNIDAD
+POST http://localhost:3000/units
+Content-Type: application/json
+
+{
+  "unitNumber": "A102",
+  "sqm": 30
+}
+
+### MODIFICAR UNA UNIDAD (PUT)
+PUT http://localhost:3000/units/1
+Content-Type: application/json
+
+{
+  "unitNumber": "A102",
+  "sqm": 90.0,
+  "description": "Departamento amplio de 3 dormitorios",
+  "coOnwership": 0.18,
+  "rooms": 3,
+  "capacity": 6
+}
+
+### MODIFICAR UNA UNIDAD (PATCH)
+PATCH http://localhost:3000/units/1
+Content-Type: application/json
+
+{
+  "unitNumber": "A101-BIS",
+  "sqm": 88.0,
+  "capacity": 5
+}
+
+### ELIMINAR UNA UNIDAD
+DELETE http://localhost:3000/units/1

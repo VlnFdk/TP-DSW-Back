@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import express , {Request, Response, NextFunction} from 'express';
 import DatabaseManager from './database/DataBaseManager.js';
-import inmuebleRoutes from './routes/inmueble.routes.js';
+import unitRoutes from './routes/unit.routes.js';
 
 const app = express();
 const dbManager = DatabaseManager.getInstance();
@@ -34,7 +34,7 @@ const initializeApp = async (): Promise<void> => {
         });
 
         // Configurar rutas después de inicializar la BD
-        app.use('/inmuebles', inmuebleRoutes);
+        app.use('/units', unitRoutes);
 
         // Iniciar el servidor
         app.listen(PORT, () => {

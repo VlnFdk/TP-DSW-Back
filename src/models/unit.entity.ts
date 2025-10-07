@@ -13,7 +13,7 @@ export class Unit {
     @Column({type: 'float'})
     public sqm!: number;
 
-    @Column()
+    @Column({type: 'varchar', nullable: true})
     public description!: string;
 
     @Column({type: 'float', nullable: true})
